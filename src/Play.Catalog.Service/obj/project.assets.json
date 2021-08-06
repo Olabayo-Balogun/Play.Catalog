@@ -2,6 +2,9 @@
   "version": 3,
   "targets": {
     "net5.0": {
+      "Microsoft.AspNetCore.Mvc.Api.Analyzers/2.2.6": {
+        "type": "package"
+      },
       "Microsoft.Extensions.ApiDescription.Server/3.0.0": {
         "type": "package",
         "build": {
@@ -79,6 +82,18 @@
     }
   },
   "libraries": {
+    "Microsoft.AspNetCore.Mvc.Api.Analyzers/2.2.6": {
+      "sha512": "XvMvPlksyAtIk+wYzF6pcroVX8cxMkVqqv2Scheh+NzskS1JKXLU1myt2+X6Ia1XLMUtbxZY1hrYgZJy92fjqA==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.mvc.api.analyzers/2.2.6",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "analyzers/dotnet/cs/Microsoft.AspNetCore.Mvc.Api.Analyzers.dll",
+        "microsoft.aspnetcore.mvc.api.analyzers.2.2.6.nupkg.sha512",
+        "microsoft.aspnetcore.mvc.api.analyzers.nuspec"
+      ]
+    },
     "Microsoft.Extensions.ApiDescription.Server/3.0.0": {
       "sha512": "LH4OE/76F6sOCslif7+Xh3fS/wUUrE5ryeXAMcoCnuwOQGT5Smw0p57IgDh/pHgHaGz/e+AmEQb7pRgb++wt0w==",
       "type": "package",
@@ -189,6 +204,7 @@
   },
   "projectFileDependencyGroups": {
     "net5.0": [
+      "Microsoft.AspNetCore.Mvc.Api.Analyzers >= 2.2.6",
       "Swashbuckle.AspNetCore >= 5.6.3"
     ]
   },
@@ -236,6 +252,10 @@
       "net5.0": {
         "targetAlias": "net5.0",
         "dependencies": {
+          "Microsoft.AspNetCore.Mvc.Api.Analyzers": {
+            "target": "Package",
+            "version": "[2.2.6, )"
+          },
           "Swashbuckle.AspNetCore": {
             "target": "Package",
             "version": "[5.6.3, )"

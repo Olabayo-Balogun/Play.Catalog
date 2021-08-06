@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "2NPMCBMrmxFryulB2kDCJLvYnjw9B2ecnOz6JA3hJ/z+ezJeQNucvaBfMWAqisoAwoqBGD0fqR44vJaG8kemIw==",
+  "dgSpecHash": "6AgTv803ZEPrSjthuWvCgimJra2n4TI0h/QftXhkIhBmMwQBOjoxZHWkO9dLHGHU0ZJjQ+b0TcCAwP/pIdr0pQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\olaba\\source\\repos\\Play.Catalog\\src\\Play.Catalog.Service\\Play.Catalog.Service.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\olaba\\.nuget\\packages\\microsoft.aspnetcore.mvc.api.analyzers\\2.2.6\\microsoft.aspnetcore.mvc.api.analyzers.2.2.6.nupkg.sha512",
     "C:\\Users\\olaba\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\olaba\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
     "C:\\Users\\olaba\\.nuget\\packages\\swashbuckle.aspnetcore\\5.6.3\\swashbuckle.aspnetcore.5.6.3.nupkg.sha512",
