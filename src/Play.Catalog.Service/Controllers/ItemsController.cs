@@ -39,9 +39,19 @@ namespace Play.Catalog.Service.Controllers
         /// <returns>An ACtionResult of type "Book"</returns>
         /// <response code="200">Returns the requested item</response>
         [HttpGet("{id}")] //GET /Items/{id}
-        public ItemDto GetById(Guid id)
+
+        //We added an "ActionResult" in order to be able return different types of responses, without the "ActionResult" and type (ItemDto in this case) we wouldn't be able to make it work.
+        //Any API that needs to find something from the database and return it (and maybe manipulate it), must have an "ActionResult" of the type of item it's trying to find or it won't be able to find the item.
+        public ActionResult<ItemDto> GetById(Guid id)
         {
             var item = items.Where(item => item.Id == id).SingleOrDefault();
+
+            //The "if" block ensures that we can handle an invalid input.
+            if (item == null)
+            {
+                return NotFound();
+            }
+
             return item;
         }
 
@@ -72,11 +82,17 @@ namespace Play.Catalog.Service.Controllers
         //IActionResult is used when you don't have a return type.
         //Updating a result doesn't require a return type as what you're updating already exists.
         //Here we're passing the id of the item we're updating and calling the UpdateItemDto contract to handle the rest.
-        [HttpPut("{id}")] //PUT /Items/{id}
+        [HttpPut("{id}")] //PUT /Items/{id
+                          
+        //an IActionResult can suffice in the same was as an ActionResult (for a GET request) for a PUT request.
         public IActionResult Put(Guid id, UpdateItemDto updateItemDto)
         {
             var existingItem = items.Where(item => item.Id == id).SingleOrDefault();
 
+            if (existingItem == null)
+            {
+                return NotFound();
+            }
             //This is where we clone the existing item and pass in the updated details
             var updatedItem = existingItem with
             {
@@ -109,6 +125,13 @@ namespace Play.Catalog.Service.Controllers
         {
             //This tries to get the position (id) of the item we want to delete
             var index = items.FindIndex(existingItem => existingItem.Id == id);
+
+            //We handle the possibility of an invalid item here using the logic that if the item isn't found, there would be no index position as such less than 0 works.
+            //We can't say if index == null because null is a reference type and an int type can't be compared to a reference type, there's also no reason why we should use boxing and/or unboxing in this case.  
+            if (index < 0)
+            {
+                return NotFound();
+            }
 
             //This is where we delete the item by removing the item
             items.RemoveAt(index);
