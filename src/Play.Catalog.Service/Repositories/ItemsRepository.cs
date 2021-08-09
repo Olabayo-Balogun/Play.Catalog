@@ -35,6 +35,7 @@ namespace Play.Catalog.Service.Repositories
         //}
 
         //Here, we inject the IMongoDatabase.
+        //This "database" parameter results will come from line 57 of the startup.cs class
         public ItemsRepository(IMongoDatabase database)
         {
             dbCollection = database.GetCollection<Item>(collectionName);

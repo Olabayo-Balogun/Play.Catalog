@@ -14,11 +14,17 @@ using Microsoft.OpenApi.Models;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
+using MongoDB.Driver;
+using Play.Catalog.Service.Repositories;
+using Play.Catalog.Service.Settings;
 
 namespace Play.Catalog.Service
 {
     public class Startup
     {
+        //We are adding at the class level variables at this position because we're going to be using these resources in multiple places.
+        private ServiceSettings serviceSettings;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -32,6 +38,29 @@ namespace Play.Catalog.Service
             //The BsonSerializer is what we use to ensure that the data we're serializing (ID and Date created) shows in the database when we check for it.
             BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
             BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(BsonType.String));
+
+            //Here, we're calling the value of the service settings using the the Configurations settings just outside this method.
+            //The ServiceSettings is the same name as the class so it's easy to map to it.
+            //With this code snippet below, we have deserialized the ServiceSettings we loaded above.
+            serviceSettings = Configuration.GetSection(nameof(ServiceSettings)).Get<ServiceSettings>();
+
+            //Here, we construct the MongoDbClient
+            //The AddSingleton service ensures that there is only one instance of our instantiated object in the entire microservice application
+            services.AddSingleton(serviceProvider =>
+            {
+                var mongoDbSettings = Configuration.GetSection(nameof(MongoDbSettings)).Get<MongoDbSettings>();
+
+                //Here's where we're actually constructing the MongoDbClient.
+                var mongoClient = new MongoClient(mongoDbSettings.ConnectionString);
+
+                //Here's where we get an instance of the database that we have
+                //This result will be passed into the database parameter in ItemRepository constructor in line 38 of ItemRepository.cs
+                return mongoClient.GetDatabase(serviceSettings.ServiceName);
+            });
+
+            //Here, we register the ItemsRepository dependency.
+            //The code below is different from the code above because we're registering/declaring the service here while we're constructing a service above
+            services.AddSingleton<IItemsRepository, ItemsRepository>();
 
             //services.AddControllers();
 
