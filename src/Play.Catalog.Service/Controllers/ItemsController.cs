@@ -25,8 +25,16 @@ namespace Play.Catalog.Service.Controllers
         //};
 
         //Because the methods in the ItemsRepository are async, we have to make all our methods here aysnc to be able to leverage the async features of the ItemsRepository
-        private readonly ItemsRepository itemsRepository = new();
+        //private readonly ItemsRepository itemsRepository = new();
 
+        //We're initiating the dependency injection by using the interface as an abstraction.
+        private readonly IItemsRepository itemsRepository;
+
+        //We introduce this constructor to inject the IItemsrepository dependency.
+        public ItemsController(IItemsRepository itemsRepository)
+        {
+            this.itemsRepository = itemsRepository;
+        }
 
         /// <summary>
         ///     Get all Items
