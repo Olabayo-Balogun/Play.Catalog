@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Play.Catalog.Service.Repositories
 {
-    public class ItemRepository
+    public class ItemsRepository
     {
         //A collectionName is to MongoDb as Table name is to SQL
         private const string collectionName = "items";
@@ -18,7 +18,7 @@ namespace Play.Catalog.Service.Repositories
         //This helps us handle how we query requests and find it through the repository as we search for stuff
         private readonly FilterDefinitionBuilder<Item> filterBuilder = Builders<Item>.Filter;
 
-        public ItemRepository()
+        public ItemsRepository()
         {
             //This is where we declare the connection string to the database.
             //Note that this shouldn't be declared here in this way, it's not a standard convention.
