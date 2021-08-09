@@ -18,19 +18,25 @@ namespace Play.Catalog.Service.Repositories
         //This helps us handle how we query requests and find it through the repository as we search for stuff
         private readonly FilterDefinitionBuilder<Item> filterBuilder = Builders<Item>.Filter;
 
-        public ItemsRepository()
+        //public ItemsRepository()
+        //{
+        //    //This is where we declare the connection string to the database.
+        //    //Note that this shouldn't be declared here in this way, it's not a standard convention.
+        //    var mongoClient = new MongoClient("mongodb://localhost:27017");
+
+        //    //Here, we declare the actual database location and name
+        //    //It is named "Catalog" as a result of the fact that the microservice is a catalog microservice.
+
+        //    var database = mongoClient.GetDatabase("Catalog");
+
+        //    //Here's where we create an instance of the dbcollection.
+        //    //Note that it has to have the same type as the entity.
+        //    dbCollection = database.GetCollection<Item>(collectionName);
+        //}
+
+        //Here, we inject the IMongoDatabase.
+        public ItemsRepository(IMongoDatabase database)
         {
-            //This is where we declare the connection string to the database.
-            //Note that this shouldn't be declared here in this way, it's not a standard convention.
-            var mongoClient = new MongoClient("mongodb://localhost:27017");
-
-            //Here, we declare the actual database location and name
-            //It is named "Catalog" as a result of the fact that the microservice is a catalog microservice.
-
-            var database = mongoClient.GetDatabase("Catalog");
-
-            //Here's where we create an instance of the dbcollection.
-            //Note that it has to have the same type as the entity.
             dbCollection = database.GetCollection<Item>(collectionName);
         }
 
